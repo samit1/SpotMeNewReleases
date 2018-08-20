@@ -10,21 +10,26 @@ import UIKit
 
 class RecommendationsViewController: UIViewController {
 
+    private var songs = [Item]()
+    
+    private lazy var newReleasesCollectionView : UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.brown
         
-        let requester = NetworkRequester()
-        let spotifyEndPoint = SpotifyEndPointRequester()
-        guard let request = requester.createURLRequest(endPoint: spotifyEndPoint, additionalParams: [:]) else {
-            return
-        }
+        let requester = SpotifyNewReleases()
         
-        requester.performRequest(request: request) { (result) in
+        requester.getSpotifyNewReleases() { (result) in
             switch result {
-            case .success(let data):
-                print(String(data: data, encoding: String.Encoding.utf8)!)
-                
+            case .success(let payload):
+                print(payload)
             case .fail(let error):
                 print(error)
             }
@@ -32,12 +37,21 @@ class RecommendationsViewController: UIViewController {
         
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
+extension RecommendationsViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return songs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return songs.count > 0 ? 1 : 0
+    }
+    
+    
+    
+}

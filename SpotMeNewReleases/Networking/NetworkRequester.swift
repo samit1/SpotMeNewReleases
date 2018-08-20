@@ -21,47 +21,6 @@ struct NetworkRequester {
     }()
     
     
-    
-    func createURLRequest(endPoint: EndPointType, additionalParams: [String: String] ) -> URLRequest? {
-        
-        guard var components = URLComponents(string: endPoint.baseURL) else {
-            print("base path failed url conversion")
-            return nil
-        }
-        
-        
-        components.path = endPoint.endPoint
-        
-        /* create URL params */
-        
-        let baseParams = [
-            "Content-Type" : "application/json",
-            "Authorization" : "Bearer " + endPoint.oAuthToken
-        ]
-        
-        var queryComponents = [URLQueryItem]()
-        
-        for (key, value) in additionalParams {
-            let queryItem = URLQueryItem(name: key, value: value)
-            queryComponents.append(queryItem)
-        }
-        
-        components.queryItems = queryComponents
-        
-        guard let url = components.url else {
-            return nil
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        for (key, value) in baseParams {
-            urlRequest.setValue(value, forHTTPHeaderField: key)
-        }
-        
-        
-        return urlRequest
-        
-    }
-    
     func performRequest(request: URLRequest, onCompletion: @escaping (RequestResult) -> ()) {
         
         if let response = cache.cachedResponse(for: request) {

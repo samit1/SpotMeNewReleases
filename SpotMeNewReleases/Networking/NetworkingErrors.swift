@@ -1,5 +1,5 @@
 //
-//  RequestResult.swift
+//  NetworkingErrors.swift
 //  SpotMeNewReleases
 //
 //  Created by Sami Taha on 8/20/18.
@@ -8,13 +8,10 @@
 
 import Foundation
 
-enum RequestResult {
-    case success(Data)
-    case fail(Error)
-}
-
 
 enum NetworkingErrors : Error {
     case nilDataReturned
     case nonConvertibleResponse
+    case jsonParsError
+    case invalidURLRequest
 }
