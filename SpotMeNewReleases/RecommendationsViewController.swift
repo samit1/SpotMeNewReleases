@@ -14,7 +14,23 @@ class RecommendationsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.brown
         
-
+        let requester = NetworkRequester()
+        let spotifyEndPoint = SpotifyEndPointRequester()
+        guard let request = requester.createURLRequest(endPoint: spotifyEndPoint, additionalParams: [:]) else {
+            return
+        }
+        
+        requester.performRequest(request: request) { (result) in
+            switch result {
+            case .success(let data):
+                print(String(data: data, encoding: String.Encoding.utf8)!)
+                
+            case .fail(let error):
+                print(error)
+            }
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

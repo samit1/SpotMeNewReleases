@@ -22,7 +22,7 @@ struct NetworkRequester {
     
     
     
-    private func createURLRequest(endPoint: EndPointType, additionalParams: [String: String] ) -> URLRequest? {
+    func createURLRequest(endPoint: EndPointType, additionalParams: [String: String] ) -> URLRequest? {
         
         guard var components = URLComponents(string: endPoint.baseURL) else {
             print("base path failed url conversion")
@@ -32,7 +32,7 @@ struct NetworkRequester {
         
         components.path = endPoint.endPoint
         
-        /* create base params */
+        /* create URL params */
         
         let baseParams = [
             "Content-Type" : "application/json",
@@ -40,11 +40,6 @@ struct NetworkRequester {
         ]
         
         var queryComponents = [URLQueryItem]()
-        
-        for (key, value) in baseParams {
-            let queryItem = URLQueryItem(name: key, value: value)
-            queryComponents.append(queryItem)
-        }
         
         for (key, value) in additionalParams {
             let queryItem = URLQueryItem(name: key, value: value)
@@ -57,7 +52,13 @@ struct NetworkRequester {
             return nil
         }
         
-        return URLRequest(url: url)
+        var urlRequest = URLRequest(url: url)
+        for (key, value) in baseParams {
+            urlRequest.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        
+        return urlRequest
         
     }
     
