@@ -83,4 +83,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
         return imageFetched
     }
     
+    struct Constants {
+        static let reuseIdentifier = "ItemCollectionViewCell"
+        static let xibIdentifier = "ItemCollectionViewCell"
+    }
+    
 }
