@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RecommendationsViewController.swift
 //  SpotMeNewReleases
 //
 //  Created by Sami Taha on 8/20/18.
@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class RecommendationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = UIColor.brown
+        
+
     }
 
     override func didReceiveMemoryWarning() {
