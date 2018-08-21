@@ -34,7 +34,7 @@ struct SpotifyNewReleases  {
             return
         }
         
-        requester.performRequest(request: request) { (result) in
+        requester.performRequest(request: request, useCache: true) { (result) in
             
             switch result {
             case .success(let data):

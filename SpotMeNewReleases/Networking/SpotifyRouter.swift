@@ -16,7 +16,7 @@ enum SpotifyRouter {
     // As such, I am manually typing in my bearer key but it expires every so often. 
     private static let baseURL = "https://api.spotify.com"
     private static let authorization = "Bearer \(key)"
-    private static let key = "BQA7g0b3bfjw9OX499qrpsnAXRSGUff5nNOf_AC_a8wq3L0_tOUHBH5d48rl1S-By9PXrc_itEQ_grd1PuOJbnc1JguBzm8mepGrVcAKRq2qrIn0LL4wMq229gcAxvO1Xb8KYk78Kfbh9fJPQ9U"
+    private static let key = "BQBq8VDsoOUCYhnZ5ZaJyh0RgF57coFjBkGfcIFB9DuOcnm-tMxIY-NeBKURqKA28ZW6NWUATWfbfW3yBvU"
     
     /// API Endpoint
     private var path : String {

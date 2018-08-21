@@ -59,7 +59,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         var imageFetched : UIImage?
         
         let request = NetworkRequester()
-        request.performRequest(request: urlRequest) { [weak self] (result) in
+        request.performRequest(request: urlRequest, useCache: true) { [weak self] (result) in
             
             /// Guard against race conditions
             guard self?.lastRequestURL == url else {

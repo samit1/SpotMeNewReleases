@@ -29,9 +29,9 @@ struct NetworkRequester {
     }()
     
     /// Performs a URL Request.
-    func performRequest(request: URLRequest, onCompletion: @escaping (RequestResult) -> ()) {
-
-        if let response = cache.cachedResponse(for: request) {
+    func performRequest(request: URLRequest, useCache: Bool = false, onCompletion: @escaping (RequestResult) -> ()) {
+        
+        if  useCache, let response = cache.cachedResponse(for: request) {
             DispatchQueue.main.async {
                 onCompletion(.success(response.data))
             }
