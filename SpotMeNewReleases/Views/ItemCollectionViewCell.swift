@@ -14,9 +14,9 @@ import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet private var imageView: UIImageView!
     
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet private var titleLabel: UILabel!
     
     private var lastRequestURL : URL?
     
@@ -26,11 +26,11 @@ class ItemCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         titleLabel.text = ""
-//        lastDataTask?.cancel()
+//        lastDataTask?.cancel() // this is what I want to cancel
     }
     
     func configureCell(title: String?, imgLink: String?) {
-        titleLabel.text = ""
+        titleLabel.text = title
         
         imageView.image = nil
         
@@ -41,9 +41,11 @@ class ItemCollectionViewCell: UICollectionViewCell {
         let img = fetchImage(url: imgLink)
         imageView.image = img
         
-
     }
     
+    
+    // MARK: Question
+    // I wanted to return the image in a fetchImage function but I return nil. Setting up some breakpoints, I see that the image is not actually nil, I'm clearly doing something wrong. The way the image is getting set is I am doing the self?.imageView.image = img. Which isn't what i wanted to do 
     private func fetchImage(url: String) -> UIImage? {
         
         guard let url = URL(string: url) else {
@@ -73,7 +75,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
                 }
                 
                 imageFetched = img
-                
+                self?.imageView.image = img
             case .fail(let error):
                 print(error)
                 

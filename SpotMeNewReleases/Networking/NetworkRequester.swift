@@ -8,21 +8,29 @@
 
 import Foundation
 
+/// Generic manager that manages networking activites. Requests should be made through this interface if possible.
+/// - NOTE: Caching is used. 
 struct NetworkRequester {
     
+    /// Shared URLSession
     private var sharedSession : URLSession = {
         let sharedSession = URLSession(configuration: .default)
         return sharedSession
     }()
     
+    /// Cache for URLRequests
+    /// Everytime this is instantiated the cache is cleared.
     private var cache : URLCache = {
-        let cache = URLCache(memoryCapacity: 500 * 1024 * 1024, diskCapacity: 500 * 1024 * 1024, diskPath: nil)
+        // MARK: QUESTION:
+        /// How does one going about choosing a memory capcity? I found this on SO
+        let cache = URLCache(memoryCapacity: 500 * 1024 * 1024, diskCapacity: 0, diskPath: nil)
+        cache.removeAllCachedResponses()
         return cache
     }()
     
-    
+    /// Performs a URL Request.
     func performRequest(request: URLRequest, onCompletion: @escaping (RequestResult) -> ()) {
-        
+
         if let response = cache.cachedResponse(for: request) {
             DispatchQueue.main.async {
                 onCompletion(.success(response.data))

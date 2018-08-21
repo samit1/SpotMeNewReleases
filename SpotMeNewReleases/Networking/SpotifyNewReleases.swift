@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Manages how to query the Spotify New Releases API
 struct SpotifyNewReleases  {
     
     enum RequestResult {

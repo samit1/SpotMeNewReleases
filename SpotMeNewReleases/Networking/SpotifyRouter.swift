@@ -8,13 +8,17 @@
 
 import Foundation
 
+/// Manages how a URL request should be created based on the endpoint used.
 enum SpotifyRouter {
     case newReleases
     
+    // MARK: QUESTION: I have no idea how to deal with authorization. Trying to request my credentials on their site returns authorization errors. https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow
+    // As such, I am manually typing in my bearer key but it expires every so often. 
     private static let baseURL = "https://api.spotify.com"
     private static let authorization = "Bearer \(key)"
-    private static let key = "BQDt2Ea2MF4DP2bZ_dh_6cOfLRFp2w8-KbvfGiHhR9a-7ExUuklWU2ZyYxZQf8sI2bWH1FnSsO-LFlZqaUzpv2qWQ_NxUoL3N6kpwMphmccZYLQLbXlR8BUTdJgRnKv14kviK2LFIguHh3LoQUo"
+    private static let key = "BQA7g0b3bfjw9OX499qrpsnAXRSGUff5nNOf_AC_a8wq3L0_tOUHBH5d48rl1S-By9PXrc_itEQ_grd1PuOJbnc1JguBzm8mepGrVcAKRq2qrIn0LL4wMq229gcAxvO1Xb8KYk78Kfbh9fJPQ9U"
     
+    /// API Endpoint
     private var path : String {
         switch self {
         case .newReleases:
@@ -22,6 +26,7 @@ enum SpotifyRouter {
         }
     }
     
+    /// Optional parameters to include for API
     private var parameters : [String : String] {
         switch self {
         case .newReleases:
@@ -29,6 +34,8 @@ enum SpotifyRouter {
         }
     }
     
+    /// Generates a URLRequest if possible, based on which endpoint was chosen
+    /// - NOTE: URLRequest includes the authorization and content-type parameters
     func generateRequest() -> URLRequest? {
         
         var components = URLComponents(string: SpotifyRouter.baseURL)

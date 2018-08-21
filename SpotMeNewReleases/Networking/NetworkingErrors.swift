@@ -9,6 +9,7 @@
 import Foundation
 
 
+/// Networking errors
 enum NetworkingErrors : Error {
     case nilDataReturned
     case nonConvertibleResponse

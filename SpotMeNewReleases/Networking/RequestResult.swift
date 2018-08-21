@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A generic Results enum that represents a successful result or a failed result. 
 enum RequestResult {
     case success(Data)
     case fail(Error)
